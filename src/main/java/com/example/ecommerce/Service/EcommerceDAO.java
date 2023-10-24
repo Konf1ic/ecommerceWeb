@@ -27,6 +27,46 @@ public class EcommerceDAO implements EcommerceService {
     private static final String INSERT_account_staff_SQL = "INSERT INTO account_staff (username, password, email, name, age,phone_number,address) VALUES (?, ?, ?, ?, ?, ?, ?);";
     private static final String INSERT_account_supplier_SQL = "INSERT INTO account_supplier (username, password, email, age,phone_number,address) VALUES (?, ?, ?, ?, ?, ?);";
     private static final String SELECT_ALL = "select * from ";
+    private static final String SELECT_Ecommerce_by_ID = "select username,password,email,age, phone_number,address from account_buyer where id =?";
+    private static final String UPDATE_Ecommerce = "update account_buyer set username = ?,password=?,email=?,age=?,phone_number=?,address=? where id=?;";
+
+    public boolean updateEcommerce(Ecommerce ecommerce) throws SQLException, ClassNotFoundException {
+        boolean rowUpdated;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_Ecommerce)) {
+            preparedStatement.setString(1, ecommerce.getUsername());
+            preparedStatement.setString(2, ecommerce.getPassword());
+            preparedStatement.setString(3, ecommerce.getEmail());
+            preparedStatement.setInt(4, ecommerce.getAge());
+            preparedStatement.setInt(5, ecommerce.getPhone_number());
+            preparedStatement.setString(6, ecommerce.getAddress());
+            preparedStatement.setInt(7, ecommerce.getId());
+            rowUpdated = preparedStatement.executeUpdate() > 0;
+        }
+        return rowUpdated;
+    }
+
+    public Ecommerce selectEcommerce(int id) {
+        Ecommerce ecommerce = null;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_Ecommerce_by_ID)) {
+            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                int age = rs.getInt("age");
+                int phone_number = rs.getInt("phone_number");
+                String address = rs.getString("address");
+                ecommerce = new Ecommerce(username, password, email, age, phone_number, address);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ecommerce;
+    }
 
     @Override
     public void insertAccount_buyer(Ecommerce ecommerce) {

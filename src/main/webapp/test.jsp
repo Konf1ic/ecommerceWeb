@@ -22,7 +22,7 @@
         <tr>
             <td>Username</td>
             <td>password</td>
-            <td>emaiol</td>
+            <td>email</td>
             <td>age</td>
             <td>phone</td>
             <td>address</td>
