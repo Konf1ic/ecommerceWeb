@@ -7,8 +7,16 @@ import java.util.List;
 
 public interface EcommerceService {
     public void insertAccount_buyer(Ecommerce ecommerce);
+
     public void insertAccount_staff(Ecommerce ecommerce) throws SQLException, ClassNotFoundException;
+
     public void insertAccount_supplier(Ecommerce ecommerce) throws SQLException, ClassNotFoundException;
 
-      List<Ecommerce> searchAccount(String name) throws SQLException, ClassNotFoundException;
+    List<Ecommerce> searchAccount(String name) throws SQLException, ClassNotFoundException;
+
+    public boolean UpDateAccount_staff(Ecommerce ecommerce) throws SQLException, ClassNotFoundException;
+
+
+    Ecommerce findEcommerceById(int id) throws SQLException, ClassNotFoundException;
+
 }

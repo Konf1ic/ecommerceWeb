@@ -22,9 +22,9 @@
         <tr>
             <td>Username</td>
             <td>password</td>
-            <td>emaiol</td>
+            <td>email</td>
             <td>age</td>
-            <td>phone</td>
+            <td>phone_number</td>
             <td>address</td>
         </tr>
         <c:forEach var="account" items="${list}">

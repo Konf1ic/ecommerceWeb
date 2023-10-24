@@ -97,6 +97,7 @@ public class Ecommerce
         this.email = email;
     }
 
+
     public String getName()
     {
         return name;

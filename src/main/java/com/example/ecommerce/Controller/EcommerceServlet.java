@@ -30,13 +30,44 @@ public class EcommerceServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "edit":
+                try {
+                    showEditForm(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             default:
                 showSearchForm(req, resp);
         }
     }
 
+    private void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        req.setAttribute("staff", ecommerceService.findEcommerceById(id));
+
+        req.getRequestDispatcher("update/updateAccountStaff.jsp").forward(req,resp);
+
+    }
+
+    private void UpdateAccount_Staff(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+//        String name = req.getParameter("name");
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String email = req.getParameter("email");
+        int age = Integer.parseInt(req.getParameter("age"));
+        int phone_number = Integer.parseInt(req.getParameter("phone_number"));
+        String address = req.getParameter("address");
+        Ecommerce book = new Ecommerce(id,username,password,email,age,phone_number,address);
+        ecommerceService.UpDateAccount_staff(book);
+        req.getRequestDispatcher("update/updateAccountStaff.jsp").forward(req,resp);
+    }
+
     private void showSearchForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("test.jsp").forward(req, resp);
+        req.getRequestDispatcher("searchAccount/search.jsp").forward(req, resp);
     }
 
     @Override
@@ -50,12 +81,15 @@ public class EcommerceServlet extends HttpServlet {
                 case  "search":
                     searchAccount(req,resp);
                     break;
-
                 case "registerBuyer":
                     insertAccount_buyer(req, resp);
                     break;
                 case "registerStaff":
                     insertAccount_staff(req,resp);
+                    break;
+                case "edit":
+                    UpdateAccount_Staff(req,resp);
+
                     break;
                 case "registerSupplier":
                     insertAccount_supplier(req,resp);
@@ -73,7 +107,7 @@ public class EcommerceServlet extends HttpServlet {
         List<Ecommerce>list = ecommerceService.searchAccount(username);
 
         req.setAttribute("list",list);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("test.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("searchAccount/search.jsp");
         dispatcher.forward(req,resp);
     }
 
