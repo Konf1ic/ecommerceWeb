@@ -25,10 +25,10 @@ public class Ecommerce
         this.address = address;
     }
 
-    public Ecommerce(int id, String username, String password, String email, int age, int phone_number, String address)
+    public Ecommerce(int id, String name, String password, String email, int age, int phone_number, String address)
     {
         this.id = id;
-        this.username = username;
+        this.name = name;
         this.password = password;
         this.email = email;
         this.age = age;

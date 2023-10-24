@@ -47,21 +47,19 @@ public class EcommerceServlet extends HttpServlet {
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
         int id = Integer.parseInt(req.getParameter("id"));
         req.setAttribute("staff", ecommerceService.findEcommerceById(id));
-
         req.getRequestDispatcher("update/updateAccountStaff.jsp").forward(req,resp);
 
     }
 
     private void UpdateAccount_Staff(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ClassNotFoundException, ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-//        String name = req.getParameter("name");
-        String username = req.getParameter("username");
+        String name = req.getParameter("name");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
         int age = Integer.parseInt(req.getParameter("age"));
         int phone_number = Integer.parseInt(req.getParameter("phone_number"));
         String address = req.getParameter("address");
-        Ecommerce book = new Ecommerce(id,username,password,email,age,phone_number,address);
+        Ecommerce book = new Ecommerce(id,name,password,email,age,phone_number,address);
         ecommerceService.UpDateAccount_staff(book);
         req.getRequestDispatcher("update/updateAccountStaff.jsp").forward(req,resp);
     }

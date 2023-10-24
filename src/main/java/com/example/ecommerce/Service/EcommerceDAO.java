@@ -25,7 +25,7 @@ public class EcommerceDAO implements EcommerceService {
     private static final String INSERT_account_buyer_SQL = "INSERT INTO account_buyer (username, password, email, age, phone_number, address) VALUES (?, ?, ?, ?, ?, ?);";
     private static final String INSERT_account_staff_SQL = "INSERT INTO account_staff (username, password, email, name, age,phone_number,address) VALUES (?, ?, ?, ?, ?, ?, ?);";
     private static final String INSERT_account_supplier_SQL = "INSERT INTO account_supplier (username, password, email, age,phone_number,address) VALUES (?, ?, ?, ?, ?, ?);";
-     private static final String UPDATE_USERS_account_staff_SQL ="update account_staff set username = ?, password = ? , email = ?, age= ?, phone_number = ?,address = ? where id = ?";
+     private static final String UPDATE_USERS_account_staff_SQL ="update account_staff set name = ?, password = ? , email = ?, age= ?, phone_number = ?,address = ? where id = ?";
     private static final String SELECT_ALL = "select * from ";
 
     @Override
@@ -147,7 +147,7 @@ public class EcommerceDAO implements EcommerceService {
         boolean rowUpdated;
         Connection connection = getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USERS_account_staff_SQL);
-        preparedStatement.setString(1,ecommerce.getUsername());
+        preparedStatement.setString(1,ecommerce.getName());
         preparedStatement.setString(2,ecommerce.getPassword());
         preparedStatement.setString(3,ecommerce.getEmail());
         preparedStatement.setInt(4,ecommerce.getAge());
@@ -163,22 +163,18 @@ public class EcommerceDAO implements EcommerceService {
         String query = "select * from account_staff where id = ?";
         PreparedStatement preparedStatement3 = getConnection().prepareStatement(query);
         preparedStatement3.setInt(1, editId);
-
         Ecommerce ecommerce = null;
-
         ResultSet resultSet3 = preparedStatement3.executeQuery();
         while (resultSet3.next()) {
             int id = resultSet3.getInt("id");
-            String username = resultSet3.getString("username");
+            String name = resultSet3.getString("name");
             String password = resultSet3.getString("password");
             String email = resultSet3.getString("email");
             int age = resultSet3.getInt("age");
             int phone_number = resultSet3.getInt("phone_number");
             String address = resultSet3.getString("address");
-            ecommerce = new Ecommerce(id, username, password, email, age, phone_number, address);
-
+            ecommerce = new Ecommerce(id, name, password, email, age, phone_number, address);
         }
-
         return ecommerce;
     }
 }

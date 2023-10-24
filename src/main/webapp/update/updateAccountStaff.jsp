@@ -16,7 +16,7 @@
 <button><a href="/ecommerce">Back to list</a></button>
 <form method="post" >
     <input type="hidden" name="id" value="<c:out value='${staff.id}' />">
-    <input type="text" name="username" value="<c:out value='${staff.username}' />">
+    <input type="text" name="name" value="<c:out value='${staff.name}' />">
     <input type="text" name="password" value="<c:out value='${staff.password}' />">
     <input type="text" name="email" value="<c:out value='${staff.email}' />">
     <input type="text" name="age" value="<c:out value='${staff.age}' />">
