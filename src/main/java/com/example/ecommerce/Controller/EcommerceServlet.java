@@ -47,7 +47,7 @@ public class EcommerceServlet extends HttpServlet {
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, SQLException, ClassNotFoundException {
         int id = Integer.parseInt(req.getParameter("id"));
         Ecommerce ecommerce = (Ecommerce) ecommerceService.searchAccount(String.valueOf(id));
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/edit.jsp");
         req.setAttribute("ecommerce", ecommerce);
         dispatcher.forward(req, resp);
     }

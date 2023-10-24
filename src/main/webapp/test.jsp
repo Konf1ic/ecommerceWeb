@@ -26,6 +26,7 @@
             <td>age</td>
             <td>phone</td>
             <td>address</td>
+            <td>Action</td>
         </tr>
         <c:forEach var="account" items="${list}">
             <tr>
@@ -35,6 +36,7 @@
                 <td>${account.age}</td>
                 <td>${account.phone_number}</td>
                 <td>${account.address}</td>
+                <td><a href="/ecommerce?action=edit&id=${account.id}">Edit</a></td>
             </tr>
         </c:forEach>
     </table>
